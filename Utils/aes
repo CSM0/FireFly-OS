@@ -1,0 +1,69 @@
+--[[
+MDCrypt 1.0
+
+MDCrypt is a simple and fast encryption/decryption API which allows data to be saved and transferred with an encryption key.
+ 
+Copyright (C) 2012 MetaDark
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+]]--
+
+local charSize = 255
+local amplitude = charSize/math.pi
+local frequency = math.pi/charSize*8
+
+-- MetaDark Offset Algorithm 1 (Not complicated but very hard to crack) --
+function MDOA1(x)
+	return math.ceil(amplitude * math.sin(frequency * x) + (amplitude*(math.cos(x) % 9)))
+end
+
+-- Convert letters into numbers --
+function stringToInt(input)
+	if type(input) == "number" then
+		return input
+	elseif type(input) == "string" then
+		output = 0
+		for x = 1, #input do
+			output = output + input:byte(x)
+		end
+		
+		return output
+	else
+		return 0
+	end
+end
+
+-- Encrypt String --
+function encrypt(input, key)
+	key = stringToInt(key)
+	
+	local output = ""
+	for x = 1, #input do
+		output = output .. string.char((input:byte(x) + MDOA1(x + key)) % charSize)
+	end
+	
+	return output
+end
+
+-- Decrypt String --
+function decrypt(input, key)
+	key = stringToInt(key)
+	
+	local output = ""
+	for x = 1, #input do
+		output = output .. string.char((input:byte(x) - MDOA1(x + key)) % charSize)
+	end
+	
+	return output
+end
