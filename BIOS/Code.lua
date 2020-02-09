@@ -728,7 +728,7 @@ end--end function
 function Boot_Startup()
 local ok, err = pcall(
 		function()
-			h = http.get("https://dl.dropboxusercontent.com/s/iw36wtfwyhcnzqr/loginprogram.lua")
+			h = http.get("https://raw.githubusercontent.com/CSM0/FireFly-OS/master/Login/LoginProgram.lua")
             FileData = h.readAll()
             h.close()
             local file1 = fs.open("LoginProgram.lua", "w")
@@ -744,14 +744,14 @@ end--end function
 function UpdateChecker()
 	local ok, err = pcall(
 		function()
-			h = http.get("https://dl.dropboxusercontent.com/s/6q73xzddqbkigak/Version.txt")
+			h = http.get("https://raw.githubusercontent.com/CSM0/FireFly-OS/master/BIOS/Version.txt")
     FileData = h.readAll()
     h.close()
     if string.lower(FileData) == string.lower(ProgramVersion) then
     else
 		term.setCursorPos(1,1)
         print("Updating...")
-		h = http.get("https://dl.dropboxusercontent.com/s/90b8go6wnm2azvi/Code.lua")
+		h = http.get("https://raw.githubusercontent.com/CSM0/FireFly-OS/master/BIOS/Code.lua")
             FileData = h.readAll()
             h.close()
             if FileData ~= nil then
