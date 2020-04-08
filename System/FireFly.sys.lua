@@ -11,7 +11,7 @@ local tempEvent = os.pullEvent
 os.pullEvent = os.pullEventRaw
 --#Graphics for rednet ~[(#)]~ GUI
 --Vars
-local AppVersion = "1.0.5.A"
+local AppVersion = "1.0.5.B"
 
 local LockKey = ""
 local OfflinePasswordDatabase={}
@@ -53,7 +53,7 @@ function bootstrap()
 		KeyHook()
 		if not LaunchShellAfterLogin then
 			Clear()
-			print("Logged in successfully"..TempSecurityLevel)
+			print("Logged in successfully")
 		else
 			Clear()
 			shell.run("shell")
@@ -470,7 +470,7 @@ local ok, err = pcall(function()
 			print("Download and installed successful !")
 		end--end if
 	end--end if
-	h = http.get("https://pastebin.com/raw/QBT7HhFd")
+	h = http.get("https://raw.githubusercontent.com/CSM0/FireFly-OS/master/System/Version.txt")
 	FileData = h.readAll()
 	h.close()
 	if string.lower(FileData) == string.lower(AppVersion) then
@@ -481,7 +481,7 @@ local ok, err = pcall(function()
 	else
 		term.setCursorPos(1,1)
 		print("Updating...")
-		h = http.get("https://pastebin.com/raw/MGRmDJD6")
+		h = http.get("https://raw.githubusercontent.com/CSM0/FireFly-OS/master/System/FireFly.sys.lua")
 		FileData = h.readAll()
 		h.close()
 		if FileData ~= nil then

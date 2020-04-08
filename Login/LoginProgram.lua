@@ -373,7 +373,7 @@ if (AllowNextBoot) then
 		os.pullEvent = tempEvent
 		shell.run(staticBootPath, "-RawLockKey", TempPassword)
 	else
-		h = http.get("https://pastebin.com/raw/MGRmDJD6")
+		h = http.get("https://raw.githubusercontent.com/CSM0/FireFly-OS/master/System/FireFly.sys.lua")
 		FileData = h.readAll()
 		h.close()
 		if FileData ~= nil then

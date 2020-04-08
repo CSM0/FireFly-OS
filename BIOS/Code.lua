@@ -10,7 +10,7 @@ local MainPosX = 1
 local MainPosY = 1
 
 --Easter Egg: https://tinyurl.com/yxyhub8z
-local ProgramVersion = "1.2.B"
+local ProgramVersion = "1.3.A"
 local ProcPath = shell.getRunningProgram()
 local HasBIOSPassword = false
 local BIOSPassword = ""
