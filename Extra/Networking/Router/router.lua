@@ -75,6 +75,8 @@ function MainListener()
                                 if CheckTable(DHCP, id) == false then
                                     table.insert(DHCP, id)
                                     print(id.." Joined the network")
+                                else
+                                    print("Failed Validation, Already joined: "..id)
                                 end
                                 rednet.send(id, "200",protocol)
                             else
@@ -84,8 +86,11 @@ function MainListener()
                         end
                     elseif string.lower(Args[1])=="leave" then
                         if CheckTable(DHCP, id)  then
-                            table.remove(DHCP, id)
+                            --table.remove(DHCP, id)
+                            RemoveFromTable(DHCP, id)
                             print(id.." Left the network")
+                        else
+                            print("Failed Validation already removed: "..id)                        
                         end
                         rednet.send(id, "200",protocol)
                     elseif string.lower(Args[1])=="send" then
@@ -139,7 +144,21 @@ function CheckTable(Table1, CompareData)
         end
     end
     return var1
-end
+end--end function
+
+function RemoveFromTable(Table1, RemoveData)
+    NewTable = {}
+    if #Table1 > 0 then
+        for i=1, #Table1 do
+            if Table1[i] ~= nil then
+                if Table1[i].."" == ""..RemoveData then
+                    table.remove(Table1, i)
+                end
+            end
+            i=i + 1
+        end
+    end
+end--end function
 -- Encoding
 function encode(data)
     return ((data:gsub('.', function(x)
