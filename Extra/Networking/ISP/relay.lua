@@ -15,6 +15,13 @@ function OpenAll()
     end
 end--end function
 
+function AutoOpener()
+    while true do
+        OpenAll()
+        os.sleep(3)
+    end--end while
+end--end function
+
 function Listener()
     while true do
         local id, msg, protocol = rednet.receive()
@@ -44,5 +51,4 @@ function CheckTable(Table1, CompareData)
     return var1
 end
 
-OpenAll()
-Listener()
+parallel.waitForAny(AutoOpener, Listener)

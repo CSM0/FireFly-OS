@@ -15,6 +15,12 @@ function OpenAll()
         end
     end
 end
+function AutoOpener()
+    while exitting == false do
+        OpenAll()
+        os.sleep(3)
+    end--end while
+end--end function
 function MainListener()
     while exitting == false do
         local id, msg, protocol = rednet.receive()
@@ -189,5 +195,5 @@ function decode(data)
     end))
 end
 
-OpenAll()
-MainListener()
+parallel.waitForAny(AutoOpener, MainListener)
+
